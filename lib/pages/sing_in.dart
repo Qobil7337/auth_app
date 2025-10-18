@@ -76,8 +76,10 @@ class _SignInPageState extends State<SignInPage> {
                   SizedBox(height: 4.h),
                   TextField(
                     obscureText: !_isPasswordVisible,
+                    obscuringCharacter: '*',
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
+                        iconSize: 18,
                         onPressed: () {
                           setState(() {
                             _isPasswordVisible = !_isPasswordVisible;
