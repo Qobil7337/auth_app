@@ -1,3 +1,4 @@
+import 'package:auth_app/pages/sign_up.dart';
 import 'package:auth_app/pages/sing_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(375,812),
+      designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -20,9 +21,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: false,
-            scaffoldBackgroundColor: Colors.white
+            scaffoldBackgroundColor: Colors.white,
           ),
-          home: SignInPage()
+          initialRoute: '/sign-in',
+          routes: {
+            '/sign-in': (context) => const SignInPage(),
+            '/sign-up': (context) => const SignUpPage(),
+          },
         );
       },
     );

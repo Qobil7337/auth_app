@@ -1,3 +1,4 @@
+import 'package:auth_app/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -233,7 +234,9 @@ class _SignInPageState extends State<SignInPage> {
                         style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/sign-up');
+                        },
                         child: Text(
                           'Sign Up',
                           style: TextStyle(fontSize: 14.sp),
