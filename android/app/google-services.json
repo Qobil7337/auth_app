@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119461936503",
+    "project_id": "auth-app-66c99",
+    "storage_bucket": "auth-app-66c99.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119461936503:android:1119be47feeb726f613572",
+        "android_client_info": {
+          "package_name": "com.qobil.auth_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119461936503-qbqcf6omcpj09mlumgde1vstp0r88n19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPaQhDTAej1q-qB2fVeOM68gZJEnQ_lNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119461936503-qbqcf6omcpj09mlumgde1vstp0r88n19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

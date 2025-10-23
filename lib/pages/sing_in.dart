@@ -11,6 +11,30 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   bool _isPasswordVisible = false;
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+
+      // For now, just print them
+      print('Email: $email');
+      print('Password: $password');
+
+      // TODO: perform sign-in API call
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,60 +74,107 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   SizedBox(height: 32.h),
 
-                  // Email Input
-                  Text('Email', style: TextStyle(color: Colors.grey)),
-                  SizedBox(height: 4.h),
-                  TextField(
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 12.h,
-                        horizontal: 12.w,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-
-                  // Password Input
-                  Text('Password', style: TextStyle(color: Colors.grey)),
-                  SizedBox(height: 4.h),
-                  TextField(
-                    obscureText: !_isPasswordVisible,
-                    obscuringCharacter: '*',
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        iconSize: 18,
-                        onPressed: () {
-                          setState(() {
-                            _isPasswordVisible = !_isPasswordVisible;
-                          });
-                        },
-                        icon: Icon(
-                          _isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.grey,
+                  // Form
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Email Input
+                        Text('Email', style: TextStyle(color: Colors.grey)),
+                        SizedBox(height: 4.h),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 12.h,
+                              horizontal: 12.w,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email kiriting';
+                            }
+                            if (!RegExp(
+                              r'^[^@]+@[^@]+\.[^@]+',
+                            ).hasMatch(value)) {
+                              return 'Yaroqli email kiriting';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 12.h,
-                        horizontal: 12.w,
-                      ),
+                        SizedBox(height: 16.h),
+
+                        // Password Input
+                        Text('Password', style: TextStyle(color: Colors.grey)),
+                        SizedBox(height: 4.h),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: !_isPasswordVisible,
+                          obscuringCharacter: '*',
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              iconSize: 18,
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible = !_isPasswordVisible;
+                                });
+                              },
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 12.h,
+                              horizontal: 12.w,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Parol kiriting';
+                            }
+                            if (value.length < 6) {
+                              return 'Parol kamida 6 ta belgidan iborat bo‘lishi kerak';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
                     ),
                   ),
 
@@ -130,7 +201,7 @@ class _SignInPageState extends State<SignInPage> {
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: _submit,
                       child: Text('Log In', style: TextStyle(fontSize: 16.sp)),
                     ),
                   ),
